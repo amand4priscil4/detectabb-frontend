@@ -74,7 +74,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,woff,woff2}'],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/api\..*/i,
+            urlPattern: /^https:\/\/detectabb-backend-3-main\.onrender\.com\/.*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
@@ -84,7 +84,8 @@ export default defineConfig({
               },
               cacheableResponse: {
                 statuses: [0, 200]
-              }
+              },
+              networkTimeoutSeconds: 10
             }
           },
           {

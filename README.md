@@ -1,16 +1,84 @@
-# React + Vite
+# DetectaBB Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema de detecção do Banco do Brasil - Interface Web PWA
 
-Currently, two official plugins are available:
+## Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** + **Vite** - Interface moderna e rápida
+- **Material-UI** - Componentes de interface
+- **PWA** - Progressive Web App com suporte offline
+- **Axios** - Cliente HTTP
+- **React Router** - Navegação
 
-## React Compiler
+## Configuração
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. Instalar dependências
 
-## Expanding the ESLint configuration
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 2. Configurar variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto (use `.env.example` como referência):
+
+```env
+VITE_API_URL=https://detectabb-backend-3-main.onrender.com
+```
+
+### 3. Executar em desenvolvimento
+
+```bash
+npm run dev
+```
+
+O app estará disponível em `http://localhost:5173`
+
+### 4. Build para produção
+
+```bash
+npm run build
+npm run preview
+```
+
+## Backend
+
+O frontend está configurado para consumir a API do backend hospedado em:
+**https://detectabb-backend-3-main.onrender.com**
+
+## Funcionalidades PWA
+
+✅ Instalável na tela inicial
+✅ Funciona offline
+✅ Cache automático de recursos
+✅ Atualizações automáticas
+✅ Ícone e splash screen personalizados
+✅ Modo standalone
+
+### Gerar ícones PWA
+
+Consulte [INSTRUCOES_ICONES.md](INSTRUCOES_ICONES.md) para instruções sobre como gerar os ícones necessários.
+
+## Estrutura do Projeto
+
+```
+src/
+├── components/     # Componentes reutilizáveis
+├── contexts/       # Context API (AuthContext)
+├── hooks/          # Custom hooks
+├── pages/          # Páginas da aplicação
+├── services/       # Serviços (API)
+├── theme/          # Tema Material-UI
+└── utils/          # Utilitários e constantes
+```
+
+## Scripts disponíveis
+
+- `npm run dev` - Servidor de desenvolvimento
+- `npm run build` - Build de produção
+- `npm run preview` - Preview do build
+- `npm run lint` - Executar ESLint
+
+## Licença
+
+Projeto desenvolvido para o Banco do Brasil
