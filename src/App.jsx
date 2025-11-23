@@ -12,7 +12,7 @@ import Upload from './pages/Upload';
 import Result from './pages/Result';
 import NotFound from './pages/NotFound';
 import Ajuda from './pages/Ajuda';
-import PrivateRoute from './components/Common/PrivateRoute';
+import PrivateRoute from './components/common/PrivateRoute';
 
 function App() {
   return (
