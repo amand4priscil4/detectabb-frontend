@@ -4,6 +4,9 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  resolve: {
+    extensions: ['.mjs', '.js', '.jsx', '.json', '.ts', '.tsx']
+  },
   plugins: [
     react(),
     VitePWA({
@@ -74,7 +77,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,woff,woff2}'],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/detectabb-backend-3-main\.onrender\.com\/.*/i,
+            urlPattern: /^https:\/\/api\..*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
@@ -84,8 +87,7 @@ export default defineConfig({
               },
               cacheableResponse: {
                 statuses: [0, 200]
-              },
-              networkTimeoutSeconds: 10
+              }
             }
           },
           {
