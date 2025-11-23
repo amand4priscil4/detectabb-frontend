@@ -3,11 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import {
   Box,
-  Container,
   Typography,
   Button,
-  Alert,
-  LinearProgress
+  Alert
 } from '@mui/material';
 import {
   CameraAlt as CameraIcon,
@@ -15,6 +13,7 @@ import {
 } from '@mui/icons-material';
 import { validateFile } from '../utils/validation';
 import api from '../services/api';
+import AnalysisLoadingModal from '../components/common/AnalysisLoadingModal';
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -308,12 +307,6 @@ const Upload = () => {
         </Box>
       )}
 
-      {loading && (
-        <Box sx={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}>
-          <LinearProgress />
-        </Box>
-      )}
-
       {file && !loading && (
         <Box sx={{ position: 'fixed', bottom: 20, left: 20, right: 20, zIndex: 1000 }}>
           <Alert severity="success">
@@ -321,6 +314,9 @@ const Upload = () => {
           </Alert>
         </Box>
       )}
+
+      {/* Modal de Loading da Análise */}
+      <AnalysisLoadingModal open={loading} />
     </Box>
   );
 };
