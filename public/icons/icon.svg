@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background amarelo do BB -->
+  <rect width="512" height="512" fill="#FCFC30" rx="128"/>
+
+  <!-- Círculo azul central -->
+  <circle cx="256" cy="256" r="160" fill="#465EFF"/>
+
+  <!-- Letra D estilizada -->
+  <path d="M200 180 H240 Q320 180 320 256 Q320 332 240 332 H200 Z" fill="white"/>
+
+  <!-- Detalhe interno -->
+  <path d="M230 220 H250 Q280 220 280 256 Q280 292 250 292 H230 Z" fill="#FCFC30"/>
+</svg>
