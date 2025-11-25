@@ -35,36 +35,13 @@ const Result = () => {
         setLoading(true);
 
         if (id && id !== 'latest') {
-          // Tentar buscar o resultado com polling (até 10 tentativas)
-          let attempts = 0;
-          const maxAttempts = 10;
-          let resultData = null;
+          // Buscar resultado direto pela API
+          const response = await api.get(`/api/analise/${id}`);
 
-          while (attempts < maxAttempts && !resultData) {
-            try {
-              const response = await api.get(`/api/analise/${id}`);
-
-              // Verificar se o resultado tem dados válidos
-              if (response.data && (response.data.dados_extraidos || response.data.resultado_final)) {
-                resultData = response.data;
-                break;
-              }
-            } catch (err) {
-              console.log(`Tentativa ${attempts + 1}/${maxAttempts} falhou, tentando novamente...`);
-            }
-
-            attempts++;
-
-            // Aguardar antes da próxima tentativa (intervalo crescente)
-            if (attempts < maxAttempts) {
-              await new Promise(resolve => setTimeout(resolve, 500 * attempts));
-            }
-          }
-
-          if (resultData) {
-            setResult(resultData);
+          if (response.data) {
+            setResult(response.data);
           } else {
-            setError('Resultado ainda não disponível. Tente recarregar a página em alguns segundos.');
+            setError('Resultado não encontrado');
           }
         } else {
           const savedResult = sessionStorage.getItem('lastAnalysis');
@@ -76,7 +53,7 @@ const Result = () => {
         }
       } catch (err) {
         console.error('Erro ao buscar resultado:', err);
-        setError('Erro ao carregar resultado');
+        setError('Resultado não encontrado. Aguarde alguns segundos e atualize a página (F5).');
       } finally {
         setLoading(false);
       }
