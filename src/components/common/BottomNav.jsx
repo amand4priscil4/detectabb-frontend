@@ -112,12 +112,12 @@ const BottomNav = () => {
           icon={
             <UploadIcon
               sx={{
-                bgcolor: '#465EFF',
-                color: 'white',
+                bgcolor: '#FCFC30',
+                color: '#465EFF',
                 borderRadius: '50%',
                 p: 1,
                 fontSize: 40,
-                boxShadow: '0 4px 12px rgba(70, 94, 255, 0.3)'
+                boxShadow: '0 4px 12px rgba(252, 252, 48, 0.4)'
               }}
             />
           }
