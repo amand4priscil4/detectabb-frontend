@@ -67,7 +67,11 @@ const Upload = () => {
   const handleAnalyze = async (selectedFile) => {
     const fileToAnalyze = selectedFile || file;
 
+    console.log('=== INÍCIO DA ANÁLISE ===');
+    console.log('Arquivo selecionado:', fileToAnalyze?.name, fileToAnalyze?.size, 'bytes');
+
     if (!fileToAnalyze) {
+      console.error('Nenhum arquivo selecionado');
       setError('Por favor, selecione um arquivo');
       return;
     }
@@ -76,43 +80,76 @@ const Upload = () => {
     setError('');
 
     try {
+      console.log('Criando FormData...');
       const formData = new FormData();
       formData.append('file', fileToAnalyze);
 
-      // USAR O ENDPOINT CORRETO COM WORKER
+      console.log('Enviando para /api/analisar...');
+      console.log('API Base URL:', api.defaults.baseURL);
+
       const response = await api.post('/api/analisar', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 30000
       });
 
-      if (response.data.id) {
+      console.log('Resposta recebida:', response.status, response.data);
+
+      if (response.data && response.data.id) {
+        console.log('ID da análise recebido:', response.data.id);
+
         // Salvar ID da análise
         sessionStorage.setItem('lastAnalysisId', response.data.id);
+        console.log('ID salvo no sessionStorage');
 
         // Aguardar um pouco para garantir que o resultado está disponível
+        console.log('Aguardando 1500ms antes de buscar resultado...');
         await new Promise(resolve => setTimeout(resolve, 1500));
 
         // Tentar buscar o resultado antes de redirecionar
+        console.log('Tentando buscar resultado...');
         try {
-          await api.get(`/api/analise/${response.data.id}`);
+          const resultResponse = await api.get(`/api/analise/${response.data.id}`);
+          console.log('Resultado encontrado:', resultResponse.data);
         } catch (err) {
           console.log('Resultado ainda não disponível, redirecionando mesmo assim...');
+          console.log('Erro ao buscar resultado:', err.response?.status, err.response?.data);
         }
 
         // Redirecionar
+        console.log('Redirecionando para /result/' + response.data.id);
         navigate(`/result/${response.data.id}`);
+      } else {
+        console.error('Resposta sem ID:', response.data);
+        setError('Resposta inválida do servidor. Tente novamente.');
       }
     } catch (error) {
-      console.error('Erro na análise:', error);
-      console.error('Response data:', error.response?.data);
+      console.error('=== ERRO NA ANÁLISE ===');
+      console.error('Tipo de erro:', error.name);
+      console.error('Mensagem:', error.message);
+      console.error('Status HTTP:', error.response?.status);
+      console.error('Dados da resposta:', error.response?.data);
+      console.error('Headers:', error.response?.headers);
+      console.error('Config:', error.config);
+      console.error('Erro completo:', error);
 
-      if (error.response?.status === 403) {
+      // Tratamento específico por tipo de erro
+      if (error.code === 'ECONNABORTED') {
+        setError('Tempo de processamento excedido. O servidor está demorando muito. Tente novamente.');
+      } else if (error.response?.status === 400) {
+        setError(error.response.data.detail || 'Arquivo inválido. Verifique o formato e tente novamente.');
+      } else if (error.response?.status === 403) {
         setError(error.response.data.detail || 'Limite diário atingido. Faça login para continuar!');
       } else if (error.response?.status === 500) {
         setError(error.response.data.detail || 'Erro interno no servidor. Tente novamente mais tarde.');
+      } else if (error.response?.status === 502 || error.response?.status === 503) {
+        setError('Servidor indisponível no momento. Tente novamente em alguns minutos.');
+      } else if (!error.response) {
+        setError('Erro de conexão. Verifique sua internet e tente novamente.');
       } else {
         setError(error.response?.data?.detail || 'Erro ao processar boleto. Tente novamente.');
       }
     } finally {
+      console.log('=== FIM DA ANÁLISE ===');
       setLoading(false);
     }
   };
