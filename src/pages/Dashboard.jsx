@@ -1,18 +1,13 @@
-import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Container,
-  Typography,
-  Button
+  Typography
 } from '@mui/material';
-import {
-  Upload as UploadIcon
-} from '@mui/icons-material';
 import { useAuth } from '../hooks/useAuth';
 import BottomNav from '../components/common/BottomNav';
+import StackedCarousel from '../components/common/StackedCarousel';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const { user } = useAuth();
 
   const primeiroNome = user?.nome?.split(' ')[0] || 'Usuário';
@@ -82,9 +77,9 @@ const Dashboard = () => {
           Olá, {primeiroNome}!
         </Typography>
 
-        <Typography 
-          variant="body1" 
-          sx={{ 
+        <Typography
+          variant="body1"
+          sx={{
             color: 'text.secondary',
             mb: 5,
             fontStyle: 'italic'
@@ -93,34 +88,10 @@ const Dashboard = () => {
           Proteja-se de fraudes com nosso detector de boletos!
         </Typography>
 
-        {/* Botão Grande Nova Análise */}
-        <Button
-          variant="contained"
-          fullWidth
-          size="large"
-          startIcon={<UploadIcon sx={{ fontSize: 28 }} />}
-          onClick={() => navigate('/upload')}
-          sx={{
-            borderRadius: '20px',
-            textTransform: 'none',
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            py: 3,
-            bgcolor: '#FCFC30',
-            color: '#465EFF',
-            boxShadow: '0 8px 24px rgba(252,252,48,0.4)',
-            fontStyle: 'italic',
-            '&:hover': { 
-              bgcolor: '#FCFC30',
-              opacity: 0.9,
-              boxShadow: '0 12px 32px rgba(252,252,48,0.5)',
-              transform: 'translateY(-2px)',
-              transition: 'all 0.3s ease'
-            }
-          }}
-        >
-          Nova análise!
-        </Button>
+        {/* Carrossel de Cards Empilhados */}
+        <Box sx={{ mb: 4 }}>
+          <StackedCarousel />
+        </Box>
 
         {/* Texto decorativo */}
         <Box sx={{ mt: 8, opacity: 0.3 }}>
