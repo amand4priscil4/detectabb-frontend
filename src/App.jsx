@@ -10,6 +10,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Upload from './pages/Upload';
 import Result from './pages/Result';
+import Historico from './pages/Historico';
 import NotFound from './pages/NotFound';
 import Ajuda from './pages/Ajuda';
 import PrivateRoute from './components/common/PrivateRoute';
@@ -33,7 +34,13 @@ function App() {
                 <Dashboard />
               </PrivateRoute>
             } />
-            
+
+            <Route path="/historico" element={
+              <PrivateRoute>
+                <Historico />
+              </PrivateRoute>
+            } />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
