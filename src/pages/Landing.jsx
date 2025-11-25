@@ -5,7 +5,6 @@ import {
   Typography,
   Button
 } from '@mui/material';
-import BottomNav from '../components/common/BottomNav';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -16,8 +15,7 @@ const Landing = () => {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        bgcolor: '#F5F5F5',
-        pb: '70px' // Espaço para o bottom nav
+        bgcolor: '#F5F5F5'
       }}
     >
       {/* Header amarelo */}
@@ -137,18 +135,6 @@ const Landing = () => {
           </Box>
         </Box>
       </Container>
-
-      {/* Footer */}
-      <Box sx={{ bgcolor: '#465EFF', color: 'white', py: 3, mt: 'auto' }}>
-        <Container>
-          <Typography align="center" variant="body2">
-            © 2025 DetectaBB
-          </Typography>
-        </Container>
-      </Box>
-
-      {/* Bottom Navigation */}
-      <BottomNav />
     </Box>
   );
 };
