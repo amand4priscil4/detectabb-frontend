@@ -65,7 +65,7 @@ const Upload = () => {
 
   const handleAnalyze = async (selectedFile) => {
     const fileToAnalyze = selectedFile || file;
-    
+
     if (!fileToAnalyze) {
       setError('Por favor, selecione um arquivo');
       return;
@@ -84,14 +84,26 @@ const Upload = () => {
       });
 
       if (response.data.id) {
-        // Salvar ID da análise e redirecionar
+        // Salvar ID da análise
         sessionStorage.setItem('lastAnalysisId', response.data.id);
+
+        // Aguardar um pouco para garantir que o resultado está disponível
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // Tentar buscar o resultado antes de redirecionar
+        try {
+          await api.get(`/api/analise/${response.data.id}`);
+        } catch (err) {
+          console.log('Resultado ainda não disponível, redirecionando mesmo assim...');
+        }
+
+        // Redirecionar
         navigate(`/result/${response.data.id}`);
       }
     } catch (error) {
       console.error('Erro na análise:', error);
       console.error('Response data:', error.response?.data);
-      
+
       if (error.response?.status === 403) {
         setError(error.response.data.detail || 'Limite diário atingido. Faça login para continuar!');
       } else if (error.response?.status === 500) {
