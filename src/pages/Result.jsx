@@ -18,6 +18,7 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../hooks/useAuth';
 import api from '../services/api';
+import BottomNav from '../components/common/BottomNav';
 
 const Result = () => {
   const navigate = useNavigate();
@@ -246,7 +247,7 @@ const Result = () => {
   const scoreGeral = totalChecks > 0 ? Math.round((checksOk / totalChecks) * 100) : 0;
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#F5F5F5' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F5F5F5', pb: '70px' }}>
       {/* Header com Logo */}
       <Box sx={{ bgcolor: '#FCFC30', py: 2, px: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box sx={{ textAlign: 'center', flex: 1 }}>
@@ -501,6 +502,9 @@ const Result = () => {
           Nova Análise
         </Button>
       </Container>
+
+      {/* Bottom Navigation */}
+      <BottomNav />
     </Box>
   );
 };

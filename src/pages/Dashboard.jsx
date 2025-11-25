@@ -17,6 +17,7 @@ import {
   Logout as LogoutIcon
 } from '@mui/icons-material';
 import { useAuth } from '../hooks/useAuth';
+import BottomNav from '../components/common/BottomNav';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#F5F5F5' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F5F5F5', pb: '70px' }}>
       {/* Header Amarelo com Logo */}
       <Box 
         sx={{ 
@@ -180,6 +181,9 @@ const Dashboard = () => {
           </Typography>
         </Box>
       </Container>
+
+      {/* Bottom Navigation */}
+      <BottomNav />
     </Box>
   );
 };

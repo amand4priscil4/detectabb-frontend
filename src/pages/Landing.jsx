@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { 
-  Box, 
-  Container, 
-  Typography, 
+import {
+  Box,
+  Container,
+  Typography,
   Button
 } from '@mui/material';
+import BottomNav from '../components/common/BottomNav';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -15,7 +16,8 @@ const Landing = () => {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        bgcolor: '#F5F5F5'
+        bgcolor: '#F5F5F5',
+        pb: '70px' // Espaço para o bottom nav
       }}
     >
       {/* Header amarelo */}
@@ -144,6 +146,9 @@ const Landing = () => {
           </Typography>
         </Container>
       </Box>
+
+      {/* Bottom Navigation */}
+      <BottomNav />
     </Box>
   );
 };

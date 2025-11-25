@@ -15,6 +15,7 @@ import { validateFile } from '../utils/validation';
 import api from '../services/api';
 import AnalysisLoadingModal from '../components/common/AnalysisLoadingModal';
 import CameraModal from '../components/common/CameraModal';
+import BottomNav from '../components/common/BottomNav';
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -331,6 +332,9 @@ const Upload = () => {
         onClose={() => setCameraOpen(false)}
         onCapture={handleCameraCapture}
       />
+
+      {/* Bottom Navigation */}
+      <BottomNav />
     </Box>
   );
 };
