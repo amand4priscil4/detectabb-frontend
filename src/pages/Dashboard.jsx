@@ -1,92 +1,40 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  Box, 
-  Container, 
-  Typography, 
-  Button,
-  IconButton,
-  Menu,
-  MenuItem
+import {
+  Box,
+  Container,
+  Typography,
+  Button
 } from '@mui/material';
-import { 
-  Upload as UploadIcon,
-  Menu as MenuIcon,
-  History as HistoryIcon,
-  Help as HelpIcon,
-  Logout as LogoutIcon
+import {
+  Upload as UploadIcon
 } from '@mui/icons-material';
 import { useAuth } from '../hooks/useAuth';
 import BottomNav from '../components/common/BottomNav';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const { user } = useAuth();
 
   const primeiroNome = user?.nome?.split(' ')[0] || 'Usuário';
-
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: '#F5F5F5', pb: '70px' }}>
       {/* Header Amarelo com Logo */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           bgcolor: '#FCFC30',
           py: 8,
           px: 3,
           textAlign: 'center',
-          position: 'relative',
           minHeight: '280px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
         }}
       >
-        {/* Menu hamburguer */}
-        <IconButton 
-          onClick={handleMenuOpen}
-          sx={{ 
-            position: 'absolute',
-            top: 20,
-            left: 20,
-            color: '#465EFF'
-          }}
-        >
-          <MenuIcon sx={{ fontSize: 32 }} />
-        </IconButton>
-
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-        >
-          <MenuItem onClick={() => { handleMenuClose(); navigate('/historico'); }}>
-            <HistoryIcon sx={{ mr: 1, color: '#465EFF' }} /> Histórico
-          </MenuItem>
-          <MenuItem onClick={() => { handleMenuClose(); navigate('/ajuda'); }}>
-            <HelpIcon sx={{ mr: 1, color: '#465EFF' }} /> Ajuda
-          </MenuItem>
-          <MenuItem onClick={handleLogout}>
-            <LogoutIcon sx={{ mr: 1, color: '#E00000' }} /> Sair
-          </MenuItem>
-        </Menu>
-
         {/* Logo */}
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
