@@ -14,14 +14,16 @@ import {
 import { validateFile } from '../utils/validation';
 import api from '../services/api';
 import AnalysisLoadingModal from '../components/common/AnalysisLoadingModal';
+import CameraModal from '../components/common/CameraModal';
 
 const Upload = () => {
   const navigate = useNavigate();
-  
+
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [cameraOpen, setCameraOpen] = useState(false);
 
   const onDrop = (acceptedFiles) => {
     const selectedFile = acceptedFiles[0];
@@ -103,18 +105,11 @@ const Upload = () => {
   };
 
   const handleCameraClick = () => {
-    // Abrir câmera (input com capture)
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.capture = 'environment';
-    input.onchange = (e) => {
-      const files = e.target.files;
-      if (files && files.length > 0) {
-        onDrop([files[0]]);
-      }
-    };
-    input.click();
+    setCameraOpen(true);
+  };
+
+  const handleCameraCapture = (capturedFile) => {
+    onDrop([capturedFile]);
   };
 
   return (
@@ -317,6 +312,13 @@ const Upload = () => {
 
       {/* Modal de Loading da Análise */}
       <AnalysisLoadingModal open={loading} />
+
+      {/* Modal da Câmera */}
+      <CameraModal
+        open={cameraOpen}
+        onClose={() => setCameraOpen(false)}
+        onCapture={handleCameraCapture}
+      />
     </Box>
   );
 };
