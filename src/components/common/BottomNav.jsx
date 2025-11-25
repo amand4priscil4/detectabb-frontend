@@ -7,7 +7,7 @@ import {
 import {
   Home as HomeIcon,
   History as HistoryIcon,
-  Person as PersonIcon,
+  Help as HelpIcon,
   Upload as UploadIcon
 } from '@mui/icons-material';
 import { useAuth } from '../../hooks/useAuth';
@@ -20,34 +20,38 @@ const BottomNav = () => {
   // Determinar valor atual baseado na rota
   const getCurrentValue = () => {
     const path = location.pathname;
-    if (path === '/' || path === '/landing') return 0;
+    if (path === '/dashboard') return 0;
     if (path === '/upload') return 1;
-    if (path === '/dashboard') return 2;
-    if (path === '/login' || path === '/register') return 3;
+    if (path === '/historico') return 2;
+    if (path === '/ajuda') return 3;
     return 0;
   };
 
   const handleChange = (event, newValue) => {
     switch (newValue) {
       case 0:
-        navigate('/');
+        // Início - sempre vai para Dashboard (se autenticado) ou Login
+        if (isAuthenticated) {
+          navigate('/dashboard');
+        } else {
+          navigate('/login');
+        }
         break;
       case 1:
+        // Analisar
         navigate('/upload');
         break;
       case 2:
+        // Histórico
         if (isAuthenticated) {
-          navigate('/dashboard');
+          navigate('/historico');
         } else {
           navigate('/login');
         }
         break;
       case 3:
-        if (isAuthenticated) {
-          navigate('/dashboard');
-        } else {
-          navigate('/login');
-        }
+        // Ajuda
+        navigate('/ajuda');
         break;
       default:
         break;
@@ -119,12 +123,12 @@ const BottomNav = () => {
           }
         />
         <BottomNavigationAction
-          label={isAuthenticated ? "Histórico" : "Histórico"}
+          label="Histórico"
           icon={<HistoryIcon />}
         />
         <BottomNavigationAction
-          label={isAuthenticated ? "Perfil" : "Entrar"}
-          icon={<PersonIcon />}
+          label="Ajuda"
+          icon={<HelpIcon />}
         />
       </BottomNavigation>
     </Paper>

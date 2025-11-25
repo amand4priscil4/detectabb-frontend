@@ -249,8 +249,8 @@ const Result = () => {
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: '#F5F5F5', pb: '70px' }}>
       {/* Header com Logo */}
-      <Box sx={{ bgcolor: '#FCFC30', py: 2, px: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Box sx={{ textAlign: 'center', flex: 1 }}>
+      <Box sx={{ bgcolor: '#FCFC30', py: 2, px: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ textAlign: 'center' }}>
           <Typography variant="h5" sx={{ fontWeight: 700, color: '#465EFF' }}>
             DetectaBB
           </Typography>
@@ -258,27 +258,6 @@ const Result = () => {
             Detector de Boletos Falsos
           </Typography>
         </Box>
-        
-        {/* Botão de Ajuda */}
-        <Button
-          onClick={() => navigate('/ajuda')}
-          sx={{
-            minWidth: 'auto',
-            width: 32,
-            height: 32,
-            borderRadius: '50%',
-            bgcolor: '#465EFF',
-            color: '#FCFC30',
-            fontSize: '1rem',
-            fontWeight: 700,
-            '&:hover': {
-              bgcolor: '#465EFF',
-              opacity: 0.9
-            }
-          }}
-        >
-          ?
-        </Button>
       </Box>
 
       <Container maxWidth="sm" sx={{ py: 4 }}>

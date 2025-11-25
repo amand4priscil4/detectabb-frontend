@@ -16,14 +16,11 @@ const StackedCarousel = ({ items = [] }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  // Dados de exemplo - criar mais cards para simular infinito
+  // Dados de exemplo - 3 cards
   const cards = items.length > 0 ? items : [
     { id: 1, color: '#465EFF', title: 'Card 1' },
     { id: 2, color: '#FCFC30', title: 'Card 2' },
-    { id: 3, color: '#FF6B6B', title: 'Card 3' },
-    { id: 4, color: '#4ECDC4', title: 'Card 4' },
-    { id: 5, color: '#95E1D3', title: 'Card 5' },
-    { id: 6, color: '#F38181', title: 'Card 6' }
+    { id: 3, color: '#FF6B6B', title: 'Card 3' }
   ];
 
   // Handlers para swipe/drag vertical
